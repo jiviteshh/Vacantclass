@@ -5,19 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Management</title>
+    <title>KL Vacant Class Tracker </title>
     <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}?v=1">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function showForm(formType) {
-            if (formType === "available") {
-                window.location.href = window.location.pathname;
-            } else {
-                document.getElementById("available-rooms").style.display = "none";
+
+            document.getElementById("available-rooms").style.display = "none";
                 document.getElementById("post-form").style.display = "none";
                 document.getElementById("remove-form").style.display = "none";
                 document.getElementById("feedback-form").style.display = "none";
+            if (formType === "available") {
+                window.location.href = window.location.pathname;
+            } else {
 
                 document.getElementById(formType + "-form").style.display = "block";
             }
@@ -158,7 +159,7 @@
             </form>
         </div>
 
-        <div  id="feedback-form" class="feedback-form">
+        <div  id="feedback-form" class="feedback-form" style="display: none;">
             <!-- Feedback Form -->
             <form method="POST" action="{% url 'submit_feedback' %}">
                 {% csrf_token %}
