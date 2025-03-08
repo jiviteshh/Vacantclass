@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')  # Use env 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []  
+ALLOWED_HOSTS = ['vacantclassfinder.onrender.com']  
 
 # Application definition
 
