@@ -1,0 +1,294 @@
+
+        /* General Styling */
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Main Container */
+        .container {
+            background: #ffffff;
+            margin-top: 20px;
+            height: 55vh; /* Fixed height to prevent shifting */
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            width: 80%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Header Styling */
+        h1 {
+            text-align: center;
+            color: #b30000;
+            font-weight: bold;
+            margin-top: 0;
+        }
+        h2 {
+            color: #b30000;
+        }
+
+        /* Scrolling Text */
+        .scrolling-text {
+            width: 100%;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #b30000;
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 0;
+        }
+
+        button {
+            padding: 10px 16px;
+            font-size: 16px;
+            color: white;
+            background: linear-gradient(135deg, #b30000, #7a0000);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 8px rgba(179, 0, 0, 0.3);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Forms */
+        .fosection, #available-rooms {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fosection {
+            display: none; 
+        }
+
+       /* Hide all form sections by default */
+.form-section {
+    display: none;
+}
+
+/* Show specific form sections when needed */
+#post-form, #remove-form {
+    display: block; /* Display the form sections as block elements */
+    margin: 20px auto; /* Center the forms horizontally */
+    max-width: 400px; /* Optional: Limit the width of the forms */
+}
+
+/* If you want to stack the form elements vertically */
+.form-section form {
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+    gap: 10px; /* Add spacing between form elements */
+}
+
+        /* Inputs & Select Dropdowns */
+        select, input, button {
+            width: auto;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        select:hover, input:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Table Container */
+        .table-container {
+            margin-top: 10px;
+            max-height: 270px; /* Adjusted for 3 rows */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            width: 100%;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        /* Table Headers */
+        th {
+            background-color: #b30000;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        /* Table Rows */
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Adjust Row Height */
+        tr {
+            height: 45px; /* Adjusted for 3 rows */
+        }
+
+        /* Alternate Row Shading */
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Hover Effect */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        /* Filter Container */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            max-width: 600px;
+            margin: 5px auto;
+        }
+
+        /* Adjust Select Dropdown */
+        .filter-container select {
+            flex: 1;
+            max-width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #f0f0f0;
+        }
+
+        /* Adjust Button */
+        .filter-container button {
+            flex: 0.3;
+            padding: 10px 15px;
+            font-size: 16px;
+            background: #b30000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-container button:hover {
+            background: #7a0000;
+        }
+
+        /* No Rooms Available Message */
+        #norooms {
+            display: none; /* Hide by default */
+            color: rgb(245, 238, 238);
+            background-color: #161515; /* Red error background */
+            border: 2px solid #cc0000; /* Darker red border */
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(204, 0, 0, 0.5);
+            margin: 10px auto;
+            max-width: 80%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+/* Textarea Styling */
+.feedback-form textarea {
+    margin-top: 20px;
+    margin-left: 5px;
+    width: 100%;
+    height: 250px;
+    padding: 10px;
+    border: 3px solid #131212;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+/* Submit Button */
+.feedback-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.feedback-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .feedback-form {
+        width: 90%;
+    }
+}

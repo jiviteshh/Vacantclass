@@ -1,0 +1,177 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}?v=1">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showForm(formType) {
+            if (formType === "available") {
+                window.location.href = window.location.pathname;
+            } else {
+                document.getElementById("available-rooms").style.display = "none";
+                document.getElementById("post-form").style.display = "none";
+                document.getElementById("remove-form").style.display = "none";
+                document.getElementById("feedback-form").style.display = "none";
+
+                document.getElementById(formType + "-form").style.display = "block";
+            }
+        }
+
+      
+    </script>
+    
+</head>
+<body>
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for message in messages %}
+                Swal.fire({
+                    title: "{% if message.tags == 'success' %}Success!{% else %}Error!{% endif %}",
+                    text: "{{ message|escapejs }}",
+                    icon: "{{ message.tags }}",
+                    confirmButtonColor: "#007bff"
+                });
+            {% endfor %}
+        });
+    </script>
+{% endif %}
+
+
+
+
+    <h1>Vacant Classroom Tracker</h1>
+
+    <div class="scrolling-text">
+        <marquee behavior="scroll" direction="left"><b>Welcome to the Vacant Classroom Finder! 
+            The data provided below is from students, so please excuse any inaccuracies or inconvenience. Scroll the table to see more rooms.</b>
+        </marquee>
+    </div>
+
+    <div class="button-container">
+        <button onclick="showForm('available')" style="color: aliceblue;">Available Rooms</button>
+        <button onclick="showForm('post')" style="color: aliceblue;">Post Room</button>
+        <button onclick="showForm('remove')" style="color: aliceblue;">Remove Room</button>
+        <button onclick="showForm('feedback')" style="color: aliceblue;">Feedback</button>
+    </div>
+
+    <div class="container">
+        <!-- Available Rooms Section -->
+        <div id="available-rooms" class="fosection">
+            <h2>Available Rooms</h2>
+            <form method="GET" class="filter-container">
+                <select id="block" name="block">
+                    <option value="">-- Select Block --</option>
+                    <option value="C" {% if selected_block == "C" %}selected{% endif %}>C</option>
+                    <option value="R" {% if selected_block == "R" %}selected{% endif %}>R</option>
+                    <option value="M" {% if selected_block == "M" %}selected{% endif %}>M</option>
+                    <option value="F" {% if selected_block == "F" %}selected{% endif %}>F</option>
+                    <option value="E" {% if selected_block == "E" %}selected{% endif %}>E</option>
+                    <option value="S" {% if selected_block == "S" %}selected{% endif %}>S</option>
+                    <option value="SK" {% if selected_block == "SK" %}selected{% endif %}>SK</option>
+                    <option value="L" {% if selected_block == "L" %}selected{% endif %}>L</option>
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+
+            <p id="norooms" style="display: none; color: red; font-weight: bold;">No rooms available. Use the "Post Room" button to add a room.</p>
+
+            {% if rooms %}
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Block</th>
+                        <th>Room Number</th>
+                        <th>Uploaded On</th>
+                    </tr>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.block }}</td>
+                        <td>{{ room.room_number }}</td>
+                        <td>{{ room.uploaded_on|date:"d M Y, H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        document.getElementById("norooms").style.display = "block";
+                    });
+                </script>
+            {% endif %}
+        </div>
+
+        <!-- Post Room Form -->
+        <div id="post-form" class="form-section" style="display: none;">
+            <h2>Add a New Room</h2>
+            <form method="POST" action="{% url 'post' %}">
+                {% csrf_token %}
+                <label for="post-block">Select Block:</label>
+                <select id="post-block" name="block">
+                    <option value="">--Select Block--</option>
+                    <option value="C">C</option>
+                    <option value="R">R</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                    <option value="E">E</option>
+                    <option value="S">S</option>
+                    <option value="SK">SK</option>
+                    <option value="L">L</option>
+                </select>
+
+                <label for="post-room_number">Enter Room Number:</label>
+                <input type="text" id="post-room_number" name="room_number" required>
+
+                <button type="submit">Add Room</button>
+            </form>
+        </div>
+
+        <!-- Remove Room Form -->
+        <div id="remove-form" class="form-section" style="display: none;">
+            <h2>Remove a Room</h2>
+            <form method="POST" action="{% url 'remove' %}">
+                {% csrf_token %}
+                <label for="remove-block">Select Block:</label>
+                <select id="remove-block" name="block" required>
+                    <option value="">--Select Block--</option>
+                    <option value="C">C</option>
+                    <option value="R">R</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                    <option value="E">E</option>
+                    <option value="S">S</option>
+                    <option value="SK">SK</option>
+                    <option value="L">L</option>
+                </select>
+
+                <label for="remove-room_number">Enter Room Number:</label>
+                <input type="text" id="remove-room_number" name="room_number" required>
+
+                <button type="submit">Remove Room</button>
+            </form>
+        </div>
+
+        <div  id="feedback-form" class="feedback-form">
+            <!-- Feedback Form -->
+            <form method="POST" action="{% url 'submit_feedback' %}">
+                {% csrf_token %}
+                <textarea name="message" placeholder="Enter your feedback/Any Suggestions ???" required></textarea><br><br>
+                <button type="submit">Submit Feedback</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Vacant Classroom Finder. All rights reserved.</p>
+    </footer>
+</body>
+</html>
